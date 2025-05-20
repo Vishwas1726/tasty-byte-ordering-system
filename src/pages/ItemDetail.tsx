@@ -15,6 +15,7 @@ const ItemDetail = () => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [relatedItems, setRelatedItems] = useState([]);
+  const [showControls, setShowControls] = useState(false);
   
   const menuItem = menuItems.find(item => item.id === id);
   
@@ -41,7 +42,13 @@ const ItemDetail = () => {
   const decrementQuantity = () => setQuantity(q => Math.max(1, q - 1));
   
   const handleAddToCart = () => {
-    addToCart(menuItem, quantity);
+    if (!showControls) {
+      setShowControls(true);
+    } else {
+      addToCart(menuItem, quantity);
+      setQuantity(1);
+      setShowControls(false);
+    }
   };
   
   return (
@@ -72,31 +79,35 @@ const ItemDetail = () => {
           </div>
           
           <Card className="p-6 mb-6 border-2 border-gray-100">
-            <div className="flex items-center justify-between bg-gray-100 rounded-md p-2 mb-4">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={decrementQuantity}
-                className="h-10 w-10 rounded-full hover:bg-gray-200"
-              >
-                <Minus className="h-5 w-5" />
-              </Button>
-              <span className="mx-4 w-8 text-center font-medium text-xl">{quantity}</span>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={incrementQuantity}
-                className="h-10 w-10 rounded-full hover:bg-gray-200"
-              >
-                <Plus className="h-5 w-5" />
-              </Button>
-            </div>
+            {showControls && (
+              <div className="flex items-center justify-between bg-gray-100 rounded-md p-2 mb-4">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={decrementQuantity}
+                  className="h-10 w-10 rounded-full hover:bg-gray-200"
+                >
+                  <Minus className="h-5 w-5" />
+                </Button>
+                <span className="mx-4 w-8 text-center font-medium text-xl">{quantity}</span>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={incrementQuantity}
+                  className="h-10 w-10 rounded-full hover:bg-gray-200"
+                >
+                  <Plus className="h-5 w-5" />
+                </Button>
+              </div>
+            )}
             
             <Button 
               onClick={handleAddToCart} 
               className="w-full bg-food hover:bg-food-dark py-6 text-lg font-medium"
             >
-              Add to Cart - ${(menuItem.price * quantity).toFixed(2)}
+              {showControls 
+                ? `Add to Cart - ${(menuItem.price * quantity).toFixed(2)}`
+                : 'Add to Cart'}
             </Button>
           </Card>
         </div>

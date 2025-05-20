@@ -32,6 +32,9 @@ const CartItemCard = ({ item }: CartItemCardProps) => {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
       updateQuantity(item.id, newQuantity);
+    } else {
+      // If quantity is 1 and user presses minus, remove the item
+      removeFromCart(item.id);
     }
   };
   

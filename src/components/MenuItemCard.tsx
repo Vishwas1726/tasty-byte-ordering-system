@@ -16,10 +16,16 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [showControls, setShowControls] = useState(false);
   
   const handleAddToCart = () => {
-    addToCart(item, quantity);
-    setQuantity(1); // Reset quantity after adding to cart
+    if (!showControls) {
+      setShowControls(true);
+    } else {
+      addToCart(item, quantity);
+      setQuantity(1);
+      setShowControls(false);
+    }
   };
   
   const incrementQuantity = () => {
@@ -61,28 +67,30 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
         <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.description}</p>
         
         <div className="flex flex-col space-y-2">
-          <div className="flex items-center justify-between bg-gray-100 rounded-md p-1">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8 rounded-full" 
-              onClick={decrementQuantity}
-            >
-              <Minus className="h-4 w-4" />
-            </Button>
-            <span className="font-medium text-gray-800">{quantity}</span>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8 rounded-full" 
-              onClick={incrementQuantity}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
+          {showControls && (
+            <div className="flex items-center justify-between bg-gray-100 rounded-md p-1">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 rounded-full" 
+                onClick={decrementQuantity}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+              <span className="font-medium text-gray-800">{quantity}</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 rounded-full" 
+                onClick={incrementQuantity}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
         
           <Button onClick={handleAddToCart} className="w-full bg-food hover:bg-food-dark">
-            Add to Cart ${(item.price * quantity).toFixed(2)}
+            {showControls ? `Add to Cart ${(item.price * quantity).toFixed(2)}` : 'Add to Cart'}
           </Button>
         </div>
       </CardContent>
