@@ -14,6 +14,7 @@ export interface MenuItem {
   image: string;
   category: string;
   popular?: boolean;
+  isVeg?: boolean;
 }
 
 export interface CartItem extends MenuItem {
