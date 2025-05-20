@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MenuItem } from '@/lib/types';
 import { useCart } from '@/contexts/CartContext';
 import { Badge } from '@/components/ui/badge';
+import { Plus, Minus } from 'lucide-react';
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -14,9 +15,19 @@ interface MenuItemCardProps {
 const MenuItemCard = ({ item }: MenuItemCardProps) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   
   const handleAddToCart = () => {
-    addToCart(item, 1);
+    addToCart(item, quantity);
+    setQuantity(1); // Reset quantity after adding to cart
+  };
+  
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   };
   
   return (
@@ -49,9 +60,31 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
         
         <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.description}</p>
         
-        <Button onClick={handleAddToCart} className="w-full bg-food hover:bg-food-dark">
-          Add to Cart
-        </Button>
+        <div className="flex flex-col space-y-2">
+          <div className="flex items-center justify-between bg-gray-100 rounded-md p-1">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8 rounded-full" 
+              onClick={decrementQuantity}
+            >
+              <Minus className="h-4 w-4" />
+            </Button>
+            <span className="font-medium text-gray-800">{quantity}</span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8 rounded-full" 
+              onClick={incrementQuantity}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        
+          <Button onClick={handleAddToCart} className="w-full bg-food hover:bg-food-dark">
+            Add to Cart ${(item.price * quantity).toFixed(2)}
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

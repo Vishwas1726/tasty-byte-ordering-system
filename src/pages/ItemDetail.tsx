@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { menuItems } from '@/lib/mockData';
 import { useCart } from '@/contexts/CartContext';
 import MenuItemCard from '@/components/MenuItemCard';
+import { Plus, Minus } from 'lucide-react';
 
 const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -70,35 +71,34 @@ const ItemDetail = () => {
             <p className="text-gray-700">{menuItem.description}</p>
           </div>
           
-          <Card className="p-4 mb-6">
-            <div className="flex items-center mb-4">
+          <Card className="p-6 mb-6 border-2 border-gray-100">
+            <div className="flex items-center justify-between bg-gray-100 rounded-md p-2 mb-4">
               <Button 
-                variant="outline" 
+                variant="ghost" 
                 size="icon" 
                 onClick={decrementQuantity}
-                disabled={quantity <= 1}
+                className="h-10 w-10 rounded-full hover:bg-gray-200"
               >
-                -
+                <Minus className="h-5 w-5" />
               </Button>
-              <span className="mx-4 w-8 text-center font-medium">{quantity}</span>
+              <span className="mx-4 w-8 text-center font-medium text-xl">{quantity}</span>
               <Button 
-                variant="outline" 
+                variant="ghost" 
                 size="icon" 
                 onClick={incrementQuantity}
+                className="h-10 w-10 rounded-full hover:bg-gray-200"
               >
-                +
+                <Plus className="h-5 w-5" />
               </Button>
             </div>
             
             <Button 
               onClick={handleAddToCart} 
-              className="w-full bg-food hover:bg-food-dark"
+              className="w-full bg-food hover:bg-food-dark py-6 text-lg font-medium"
             >
               Add to Cart - ${(menuItem.price * quantity).toFixed(2)}
             </Button>
           </Card>
-          
-          {/* Additional details could go here */}
         </div>
       </div>
       
