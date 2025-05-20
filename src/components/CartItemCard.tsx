@@ -60,8 +60,8 @@ const CartItemCard = ({ item }: CartItemCardProps) => {
           </div>
           
           <div className="mt-2 sm:mt-0 text-right">
-            <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
-            <p className="text-sm text-gray-500">${item.price.toFixed(2)} each</p>
+            <p className="font-bold">₹{(item.price * item.quantity).toFixed(2)}</p>
+            <p className="text-sm text-gray-500">₹{item.price.toFixed(2)} each</p>
           </div>
         </div>
         

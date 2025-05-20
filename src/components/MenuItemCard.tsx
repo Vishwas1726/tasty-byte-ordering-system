@@ -10,9 +10,10 @@ import { Plus, Minus } from 'lucide-react';
 
 interface MenuItemCardProps {
   item: MenuItem;
+  showOnlyVeg?: boolean;
 }
 
-const MenuItemCard = ({ item }: MenuItemCardProps) => {
+const MenuItemCard = ({ item, showOnlyVeg }: MenuItemCardProps) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -36,6 +37,10 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
     setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   };
   
+  if (showOnlyVeg && !item.isVeg) {
+    return null;
+  }
+  
   return (
     <Card 
       className={`overflow-hidden food-card-hover ${isHovered ? 'shadow-lg' : 'shadow'}`}
@@ -54,6 +59,9 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
         {item.popular && (
           <Badge className="absolute top-2 right-2 bg-food text-white">Popular</Badge>
         )}
+        {item.isVeg && (
+          <Badge className="absolute top-2 left-2 bg-green-500 text-white">Veg</Badge>
+        )}
       </div>
       
       <CardContent className="p-4">
@@ -61,13 +69,13 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
           <Link to={`/menu/${item.id}`} className="group">
             <h3 className="font-medium text-lg group-hover:text-food transition-colors">{item.name}</h3>
           </Link>
-          <span className="font-bold text-food">${item.price.toFixed(2)}</span>
+          <span className="font-bold text-food">₹{item.price.toFixed(2)}</span>
         </div>
         
         <p className="text-gray-600 text-sm mb-4 line-clamp-2">{item.description}</p>
         
         <div className="flex flex-col space-y-2">
-          {showControls && (
+          {showControls ? (
             <div className="flex items-center justify-between bg-gray-100 rounded-md p-1">
               <Button 
                 variant="ghost" 
@@ -87,10 +95,10 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
-          )}
+          ) : null}
         
           <Button onClick={handleAddToCart} className="w-full bg-food hover:bg-food-dark">
-            {showControls ? `Add to Cart ${(item.price * quantity).toFixed(2)}` : 'Add to Cart'}
+            {showControls ? `Add to Cart ₹${(item.price * quantity).toFixed(2)}` : 'Add to Cart'}
           </Button>
         </div>
       </CardContent>

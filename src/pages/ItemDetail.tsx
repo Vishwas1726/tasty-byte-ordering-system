@@ -67,11 +67,14 @@ const ItemDetail = () => {
           {menuItem.popular && (
             <Badge className="absolute top-4 right-4 bg-food text-white">Popular</Badge>
           )}
+          {menuItem.isVeg && (
+            <Badge className="absolute top-4 left-4 bg-green-500 text-white">Veg</Badge>
+          )}
         </div>
         
         <div>
           <h1 className="text-3xl font-bold mb-2">{menuItem.name}</h1>
-          <p className="text-2xl font-bold text-food mb-4">${menuItem.price.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-food mb-4">₹{menuItem.price.toFixed(2)}</p>
           
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2">Description</h2>
@@ -106,7 +109,7 @@ const ItemDetail = () => {
               className="w-full bg-food hover:bg-food-dark py-6 text-lg font-medium"
             >
               {showControls 
-                ? `Add to Cart - ${(menuItem.price * quantity).toFixed(2)}`
+                ? `Add to Cart - ₹${(menuItem.price * quantity).toFixed(2)}`
                 : 'Add to Cart'}
             </Button>
           </Card>

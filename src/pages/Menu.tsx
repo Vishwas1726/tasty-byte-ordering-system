@@ -6,13 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { categories, menuItems } from '@/lib/mockData';
 import MenuItemCard from '@/components/MenuItemCard';
-import { Search } from 'lucide-react';
+import { Search, Carrot } from 'lucide-react';
 
 const Menu = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
   const [filteredItems, setFilteredItems] = useState(menuItems);
+  const [showOnlyVeg, setShowOnlyVeg] = useState(false);
 
   useEffect(() => {
     const category = searchParams.get('category');
@@ -43,6 +44,10 @@ const Menu = () => {
       );
     }
     
+    if (showOnlyVeg) {
+      items = items.filter(item => item.isVeg);
+    }
+    
     setFilteredItems(items);
     
     // Update search params
@@ -51,7 +56,7 @@ const Menu = () => {
     if (searchQuery) params.set('search', searchQuery);
     setSearchParams(params);
     
-  }, [selectedCategory, searchQuery, setSearchParams]);
+  }, [selectedCategory, searchQuery, showOnlyVeg, setSearchParams]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,23 +67,37 @@ const Menu = () => {
     setSearchParams({ category });
   };
 
+  const toggleVegFilter = () => {
+    setShowOnlyVeg(!showOnlyVeg);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Our Menu</h1>
       
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
-          <Input
-            type="text"
-            placeholder="Search menu items..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-      </form>
+      {/* Search and Filter Bar */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <form onSubmit={handleSearch} className="flex-grow">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
+            <Input
+              type="text"
+              placeholder="Search menu items..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </form>
+        <Button 
+          onClick={toggleVegFilter}
+          variant={showOnlyVeg ? "default" : "outline"}
+          className={`flex items-center gap-2 ${showOnlyVeg ? 'bg-green-500 hover:bg-green-600' : 'border-green-500 text-green-500 hover:bg-green-50'}`}
+        >
+          <Carrot className="h-5 w-5" />
+          Veg Only
+        </Button>
+      </div>
       
       {/* Category Tabs */}
       <Tabs value={selectedCategory} onValueChange={handleCategoryChange} className="mb-8">
@@ -93,7 +112,7 @@ const Menu = () => {
           {filteredItems.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredItems.map(item => (
-                <MenuItemCard key={item.id} item={item} />
+                <MenuItemCard key={item.id} item={item} showOnlyVeg={showOnlyVeg} />
               ))}
             </div>
           ) : (
@@ -103,6 +122,7 @@ const Menu = () => {
               <Button onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('all');
+                setShowOnlyVeg(false);
                 setSearchParams({});
               }}>
                 Clear Filters
