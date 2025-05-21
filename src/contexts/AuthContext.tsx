@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { User } from '@/lib/types';
 import { toast } from "sonner";
@@ -53,25 +52,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Fetch user profile data from profiles table
   const fetchUserProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabase
+      // First fetch profile data
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
 
-      if (error) {
-        console.error('Error fetching user profile:', error);
+      if (profileError) {
+        console.error('Error fetching user profile:', profileError);
         setUser(null);
-      } else if (data) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Get email from auth.user
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      
+      if (userError || !userData.user) {
+        console.error('Error fetching user data:', userError);
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
+      if (profileData) {
         setUser({
-          id: data.id,
-          email: data.email || '', // We'll need to get this from auth.users
-          name: data.name || '',
-          role: data.role as 'customer' | 'admin'
+          id: profileData.id,
+          email: userData.user.email || '', // Get email from auth user data
+          name: profileData.name || '',
+          role: profileData.role as 'customer' | 'admin'
         });
       }
     } catch (error) {
       console.error('Error in fetchUserProfile:', error);
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
