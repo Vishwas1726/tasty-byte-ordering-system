@@ -1,4 +1,3 @@
-
 import { Category, MenuItem, Order, User } from './types';
 
 export const categories: Category[] = [
@@ -33,7 +32,7 @@ export const menuItems: MenuItem[] = [
     id: '1',
     name: 'Crispy Calamari',
     description: 'Tender calamari lightly fried with our special seasoning, served with marinara sauce',
-    price: 299,
+    price: 399,
     image: 'https://images.unsplash.com/photo-1640719028782-8230f1bdc53d',
     category: '1',
     popular: true,
@@ -43,7 +42,7 @@ export const menuItems: MenuItem[] = [
     id: '2',
     name: 'Bruschetta',
     description: 'Grilled bread rubbed with garlic and topped with olive oil, salt, tomato, and basil',
-    price: 199,
+    price: 279,
     image: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f',
     category: '1',
     isVeg: true
@@ -52,7 +51,7 @@ export const menuItems: MenuItem[] = [
     id: '3',
     name: 'Spinach Artichoke Dip',
     description: 'Creamy blend of spinach, artichoke hearts, and cheeses, served with tortilla chips',
-    price: 249,
+    price: 329,
     image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb',
     category: '1',
     isVeg: true
@@ -61,7 +60,7 @@ export const menuItems: MenuItem[] = [
     id: '4',
     name: 'Grilled Salmon',
     description: 'Fresh Atlantic salmon fillet grilled to perfection, served with seasonal vegetables',
-    price: 599,
+    price: 799,
     image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2',
     category: '2',
     popular: true,
@@ -71,7 +70,7 @@ export const menuItems: MenuItem[] = [
     id: '5',
     name: 'Beef Tenderloin',
     description: 'Premium cut beef tenderloin steak cooked to your liking, served with mashed potatoes',
-    price: 699,
+    price: 999,
     image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828',
     category: '2',
     popular: true,
@@ -81,7 +80,7 @@ export const menuItems: MenuItem[] = [
     id: '6',
     name: 'Vegetable Pasta',
     description: 'Fresh pasta with sautéed seasonal vegetables in a light cream sauce',
-    price: 349,
+    price: 449,
     image: 'https://images.unsplash.com/photo-1556761223-4c4282c73f77',
     category: '2',
     isVeg: true
@@ -90,7 +89,7 @@ export const menuItems: MenuItem[] = [
     id: '7',
     name: 'Chocolate Lava Cake',
     description: 'Warm chocolate cake with a molten center, served with vanilla ice cream',
-    price: 199,
+    price: 299,
     image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c',
     category: '3',
     popular: true,
@@ -100,7 +99,7 @@ export const menuItems: MenuItem[] = [
     id: '8',
     name: 'New York Cheesecake',
     description: 'Creamy classic cheesecake with a graham cracker crust and berry compote',
-    price: 179,
+    price: 249,
     image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad',
     category: '3',
     isVeg: true
@@ -109,7 +108,7 @@ export const menuItems: MenuItem[] = [
     id: '9',
     name: 'Tiramisu',
     description: 'Italian dessert made with coffee-soaked ladyfingers and mascarpone cream',
-    price: 199,
+    price: 279,
     image: 'https://images.unsplash.com/photo-1611329695518-1763319eeb38',
     category: '3',
     isVeg: true
@@ -118,7 +117,7 @@ export const menuItems: MenuItem[] = [
     id: '10',
     name: 'Craft Beer',
     description: 'Selection of local craft beers',
-    price: 149,
+    price: 249,
     image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9',
     category: '4',
     isVeg: true
@@ -127,7 +126,7 @@ export const menuItems: MenuItem[] = [
     id: '11',
     name: 'Wine',
     description: 'Curated selection of red and white wines',
-    price: 249,
+    price: 349,
     image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
     category: '4',
     isVeg: true
@@ -136,17 +135,16 @@ export const menuItems: MenuItem[] = [
     id: '12',
     name: 'Specialty Coffee',
     description: 'Premium coffee prepared by our skilled baristas',
-    price: 129,
+    price: 199,
     image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085',
     category: '4',
     isVeg: true
   },
-  // Adding more vegetarian food options
   {
     id: '13',
     name: 'Paneer Tikka',
     description: 'Marinated cottage cheese cubes grilled to perfection with Indian spices',
-    price: 349,
+    price: 449,
     image: 'https://images.unsplash.com/photo-1567188040759-fb8a3de29a2f',
     category: '2',
     isVeg: true,
@@ -156,7 +154,7 @@ export const menuItems: MenuItem[] = [
     id: '14',
     name: 'Vegetable Spring Rolls',
     description: 'Crispy rolls filled with mixed vegetables and served with sweet chili sauce',
-    price: 229,
+    price: 299,
     image: 'https://images.unsplash.com/photo-1526411162530-1a61ea962be7',
     category: '1',
     isVeg: true
@@ -165,7 +163,7 @@ export const menuItems: MenuItem[] = [
     id: '15',
     name: 'Mushroom Risotto',
     description: 'Creamy Italian rice dish cooked with assorted mushrooms and parmesan cheese',
-    price: 399,
+    price: 499,
     image: 'https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b',
     category: '2',
     isVeg: true
@@ -174,7 +172,7 @@ export const menuItems: MenuItem[] = [
     id: '16',
     name: 'Fruit Sorbet',
     description: 'Refreshing frozen dessert made with fresh fruits without any dairy',
-    price: 149,
+    price: 199,
     image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f',
     category: '3',
     isVeg: true
@@ -183,7 +181,7 @@ export const menuItems: MenuItem[] = [
     id: '17',
     name: 'Vegetable Biryani',
     description: 'Fragrant basmati rice cooked with mixed vegetables and aromatic spices',
-    price: 299,
+    price: 399,
     image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8',
     category: '2',
     isVeg: true

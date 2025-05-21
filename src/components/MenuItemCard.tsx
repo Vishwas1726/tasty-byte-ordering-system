@@ -96,7 +96,7 @@ const MenuItemCard = ({ item, showOnlyVeg }: MenuItemCardProps) => {
               </Button>
             </div>
           ) : null}
-        
+          
           <Button onClick={handleAddToCart} className="w-full bg-food hover:bg-food-dark">
             {showControls ? `Add to Cart ₹${(item.price * quantity).toFixed(2)}` : 'Add to Cart'}
           </Button>
